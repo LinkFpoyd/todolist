@@ -14,6 +14,14 @@ function App() {
     setTodos([...todos, desc]);
   }
 
+  function addRemove (index)  {
+    const removable = index;
+    setTodos(todos.filter((todo, number) => number !== removable));
+  }
+
+
+  
+
 
   return (
     <div className="App">
@@ -26,7 +34,7 @@ function App() {
       <table>
         <tbody>
           {todos.map((todo, index) => <tr key={index}>
-            <td>{todo}</td>
+            <td>{todo} <button onClick={() => addRemove(index)}>Remove</button></td>
             </tr>)}
         </tbody>
       </table>
