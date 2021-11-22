@@ -2,39 +2,35 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [desc, setDesc] = useState('');
+  const [todo, setTodo] = useState({desc:'', date:''});
   const [todos, setTodos] = useState([]);
 
   const inputChanged = (event) => {
-    setDesc(event.target.value);
+    setTodo({...todo, [event.target.name]: event.target.value});
   }
 
   const addTodo = (event) => {
     event.preventDefault();
-    setTodos([...todos, desc]);
+    setTodos([...todos, todo]);
   }
-
-  function addRemove (index)  {
-    const removable = index;
-    setTodos(todos.filter((todo, number) => number !== removable));
-  }
-
-
-  
 
 
   return (
     <div className="App">
 
+      <h1>To Do List</h1>
+
       <form onSubmit={addTodo}>
-        <input type="text" onChange={inputChanged} value={desc}/>
+        <input type="date" name="date" onChange={inputChanged} value={todo.date}/>
+        <input type="text" name="desc" onChange={inputChanged} value={todo.desc}/>
         <input type="submit" value="Add"/>
       </form>
 
       <table>
         <tbody>
           {todos.map((todo, index) => <tr key={index}>
-            <td>{todo} <button onClick={() => addRemove(index)}>Remove</button></td>
+            <td>{todo.desc}</td>
+            <td>{todo.date}</td>
             </tr>)}
         </tbody>
       </table>
